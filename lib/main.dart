@@ -6,14 +6,32 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const Color mainColor = Colors.grey;
+const Color SelectedColor = Colors.green;
+bool maleisPressed = false;
+bool femaleisPressed = false;
+
+void selectgender(int gender) {
+  if (gender == 1) {
+    maleisPressed = !maleisPressed;
+    femaleisPressed = false;
+  } else if (gender == 2) {
+    femaleisPressed = !femaleisPressed;
+    maleisPressed = false;
+  }
+}
 
 void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -25,18 +43,33 @@ class MyApp extends StatelessWidget {
               child: Row(
             children: [
               Expanded(
-                child: Useablecontanair(
-                  Cardchild: Column_GenderType(
-                      genderIcon: FontAwesomeIcons.mars, gendertype: "MALE"),
-                  colour: mainColor,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectgender(1);
+                    });
+                  },
+                  child: Useablecontanair(
+                    Cardchild: Column_GenderType(
+                        genderIcon: FontAwesomeIcons.mars, gendertype: "MALE"),
+                    colour: maleisPressed ? SelectedColor : mainColor,
+                  ),
                 ),
               ),
               Expanded(
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectgender(2);
+                    });
+                  },
                   child: Useablecontanair(
-                Cardchild: Column_GenderType(
-                    genderIcon: FontAwesomeIcons.venus, gendertype: "FEMALE"),
-                colour: mainColor,
-              )),
+                      Cardchild: Column_GenderType(
+                          genderIcon: FontAwesomeIcons.venus,
+                          gendertype: "FEMALE"),
+                      colour: femaleisPressed ? SelectedColor : mainColor),
+                ),
+              ),
             ],
           )),
           Expanded(
