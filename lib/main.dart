@@ -11,6 +11,10 @@ const Color mainColor = Colors.grey;
 const Color SelectedColor = Colors.green;
 const String Mohamed = "Mohamed";
 int height = 150;
+int weight = 60;
+int Age = 15;
+IconData IconPlus = FontAwesomeIcons.plus;
+IconData IconMinus = FontAwesomeIcons.minus;
 
 bool maleisPressed = false;
 bool femaleisPressed = false;
@@ -76,50 +80,170 @@ class _MyAppState extends State<MyApp> {
             ],
           )),
           Expanded(
-              child: Useablecontanair(
-            Cardchild: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  "HEIGHT",
-                  style: TextStyle(fontSize: 30),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      height.toString(),
-                      style:
-                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                    ),
-                    Text("cm")
-                  ],
-                ),
-                Slider(
-                  value: height.toDouble(),
-                  onChanged: (value) {
-                    setState(() {
-                      height = value.round();
-                    });
-                  },
-                  min: 120,
-                  max: 230,
-                  activeColor: Colors.green,
-                  inactiveColor: Colors.black,
-                )
-              ],
-            ),
-            onPress: () {},
-            colour: mainColor,
-          )),
-          Expanded(
             child: Useablecontanair(
+              Cardchild: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "HEIGHT",
+                    style: TextStyle(fontSize: 30),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        height.toString(),
+                        style: TextStyle(
+                            fontSize: 50, fontWeight: FontWeight.bold),
+                      ),
+                      Text("cm")
+                    ],
+                  ),
+                  Slider(
+                    value: height.toDouble(),
+                    onChanged: (value) {
+                      setState(() {
+                        height = value.round();
+                      });
+                    },
+                    min: 120,
+                    max: 230,
+                    activeColor: Colors.green,
+                    inactiveColor: Colors.black,
+                  )
+                ],
+              ),
               onPress: () {},
               colour: mainColor,
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                Expanded(
+                  child: Useablecontanair(
+                    Cardchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "WEIGHT",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundFloatingButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight--;
+                                  });
+                                },
+                                icon: IconMinus),
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                            ),
+                            RoundFloatingButton(
+                                onPressed: () {
+                                  setState(() {
+                                    weight++;
+                                  });
+                                },
+                                icon: IconPlus),
+                          ],
+                        ),
+                      ],
+                    ),
+                    colour: mainColor,
+                    onPress: () {},
+                  ),
+                ),
+                Expanded(
+                  child: Useablecontanair(
+                    Cardchild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Age",
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          Age.toString(),
+                          style: TextStyle(
+                              fontSize: 30, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundFloatingButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Age--;
+                                  });
+                                },
+                                icon: IconMinus),
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                            ),
+                            RoundFloatingButton(
+                                onPressed: () {
+                                  setState(() {
+                                    Age++;
+                                  });
+                                },
+                                icon: IconPlus),
+                          ],
+                        ),
+                      ],
+                    ),
+                    colour: mainColor,
+                    onPress: () {},
+                  ),
+                )
+              ],
             ),
           ),
         ],
       )),
     );
+  }
+}
+
+class RoundFloatingButton extends StatelessWidget {
+  const RoundFloatingButton({
+    required this.onPressed,
+    required this.icon,
+    super.key,
+  });
+
+  final Function onPressed;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+        shape: CircleBorder(),
+        child: Icon(icon),
+        onPressed: () {
+          onPressed();
+        });
   }
 }
