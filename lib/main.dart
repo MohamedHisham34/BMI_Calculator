@@ -10,6 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 const Color mainColor = Colors.grey;
 const Color SelectedColor = Colors.green;
 const String Mohamed = "Mohamed";
+int height = 150;
 
 bool maleisPressed = false;
 bool femaleisPressed = false;
@@ -76,6 +77,38 @@ class _MyAppState extends State<MyApp> {
           )),
           Expanded(
               child: Useablecontanair(
+            Cardchild: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "HEIGHT",
+                  style: TextStyle(fontSize: 30),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      height.toString(),
+                      style:
+                          TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                    ),
+                    Text("cm")
+                  ],
+                ),
+                Slider(
+                  value: height.toDouble(),
+                  onChanged: (value) {
+                    setState(() {
+                      height = value.round();
+                    });
+                  },
+                  min: 120,
+                  max: 230,
+                  activeColor: Colors.green,
+                  inactiveColor: Colors.black,
+                )
+              ],
+            ),
             onPress: () {},
             colour: mainColor,
           )),
