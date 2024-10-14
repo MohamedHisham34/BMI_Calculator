@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last
 
+import 'package:BMI_Calculator/column__gender_type.dart';
+import 'package:BMI_Calculator/useablecontanair.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,14 +9,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 const Color mainColor = Colors.grey;
 const Color SelectedColor = Colors.green;
+const String Mohamed = "Mohamed";
+
 bool maleisPressed = false;
 bool femaleisPressed = false;
 
-void selectgender(int gender) {
-  if (gender == 1) {
+enum genders { male, female }
+
+void selectgender(genders genderType) {
+  if (genderType == genders.male) {
     maleisPressed = !maleisPressed;
     femaleisPressed = false;
-  } else if (gender == 2) {
+  } else if (genderType == genders.female) {
     femaleisPressed = !femaleisPressed;
     maleisPressed = false;
   }
@@ -43,93 +49,44 @@ class _MyAppState extends State<MyApp> {
               child: Row(
             children: [
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
+                child: Useablecontanair(
+                  onPress: () {
                     setState(() {
-                      selectgender(1);
+                      selectgender(genders.male);
                     });
                   },
-                  child: Useablecontanair(
-                    Cardchild: Column_GenderType(
-                        genderIcon: FontAwesomeIcons.mars, gendertype: "MALE"),
-                    colour: maleisPressed ? SelectedColor : mainColor,
-                  ),
+                  Cardchild: Column_GenderType(
+                      genderIcon: FontAwesomeIcons.mars, gendertype: "MALE"),
+                  colour: maleisPressed ? SelectedColor : mainColor,
                 ),
               ),
               Expanded(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectgender(2);
-                    });
-                  },
-                  child: Useablecontanair(
-                      Cardchild: Column_GenderType(
-                          genderIcon: FontAwesomeIcons.venus,
-                          gendertype: "FEMALE"),
-                      colour: femaleisPressed ? SelectedColor : mainColor),
-                ),
+                child: Useablecontanair(
+                    onPress: () {
+                      setState(() {
+                        selectgender(genders.female);
+                      });
+                    },
+                    Cardchild: Column_GenderType(
+                        genderIcon: FontAwesomeIcons.venus,
+                        gendertype: "FEMALE"),
+                    colour: femaleisPressed ? SelectedColor : mainColor),
               ),
             ],
           )),
           Expanded(
               child: Useablecontanair(
+            onPress: () {},
             colour: mainColor,
           )),
           Expanded(
             child: Useablecontanair(
+              onPress: () {},
               colour: mainColor,
             ),
           ),
         ],
       )),
-    );
-  }
-}
-
-class Column_GenderType extends StatelessWidget {
-  Column_GenderType({
-    super.key,
-    required this.genderIcon,
-    required this.gendertype,
-  });
-
-  final String gendertype;
-  final IconData genderIcon;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          genderIcon,
-          size: 80,
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        Text(
-          gendertype,
-          style: TextStyle(fontSize: 20),
-        ),
-      ],
-    );
-  }
-}
-
-class Useablecontanair extends StatelessWidget {
-  Useablecontanair({super.key, required this.colour, this.Cardchild});
-  final Color colour;
-  final Widget? Cardchild;
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(20), color: colour),
-      alignment: Alignment.center,
-      child: Cardchild,
-      margin: EdgeInsets.all(8),
     );
   }
 }
