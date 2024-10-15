@@ -1,6 +1,9 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors, sort_child_properties_last
 
+import 'package:BMI_Calculator/calculator_functions.dart';
 import 'package:BMI_Calculator/column__gender_type.dart';
+import 'package:BMI_Calculator/result_page.dart';
+import 'package:BMI_Calculator/round_floating_button.dart';
 import 'package:BMI_Calculator/useablecontanair.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,11 +18,12 @@ int weight = 60;
 int Age = 15;
 IconData IconPlus = FontAwesomeIcons.plus;
 IconData IconMinus = FontAwesomeIcons.minus;
-
 bool maleisPressed = false;
 bool femaleisPressed = false;
 
 enum genders { male, female }
+
+double bmireuslt = 0;
 
 void selectgender(genders genderType) {
   if (genderType == genders.male) {
@@ -47,8 +51,24 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-          body: Column(
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
               child: Row(
@@ -221,29 +241,24 @@ class _MyAppState extends State<MyApp> {
               ],
             ),
           ),
+          MaterialButton(
+            onPressed: () {
+              Calculator_Brain calculator_brain =
+                  Calculator_Brain(height: height, weight: weight);
+              String bmireuslt = calculator_brain.bmicalculation();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ResultsPage(bmiResult: bmireuslt)),
+              );
+            },
+            child: Text(
+              "CALCULATE",
+              style: TextStyle(fontSize: 20),
+            ),
+          ),
         ],
-      )),
+      ),
     );
-  }
-}
-
-class RoundFloatingButton extends StatelessWidget {
-  const RoundFloatingButton({
-    required this.onPressed,
-    required this.icon,
-    super.key,
-  });
-
-  final Function onPressed;
-  final IconData icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton(
-        shape: CircleBorder(),
-        child: Icon(icon),
-        onPressed: () {
-          onPressed();
-        });
   }
 }
